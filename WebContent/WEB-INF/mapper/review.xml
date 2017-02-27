@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+	<insert id="write" parameterType="java.util.HashMap">
+		insert into
+		math_review(title, content, id, nick, day, count)
+		values(#{title}, #{content},  #{id}, #{nick}, now(), 0)
+	</insert>
+	<select id="reviewList" resultType="java.util.HashMap">
+		select * from math_review order by auto desc limit 10 offset #{page}
+	</select>
+	<select id="reviewNew" resultType="java.util.HashMap">
+		select * from math_review order by auto desc limit 3 offset 0
+	</select>
+	<select id="reviewView" resultType="java.util.HashMap">
+		select * from math_review where auto = #{num}
+	</select>
+	<select id="reviewCount" resultType="java.lang.Integer">
+		select count(*) from math_review
+	</select>
+	<update id="modify" parameterType="java.util.HashMap">
+		update math_review set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="delete">
+		delete from math_review where auto = #{num}
+	</delete>
+	<select id="reviewOne" resultType="java.util.HashMap">
+		select * from math_review where auto = #{num}
+	</select>
+	<update id="countUp">
+		update math_review set count = count+1 where auto = #{num}
+	</update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<insert id="join" parameterType="java.util.HashMap">
+		insert into
+		math_member(id, name, nick, pw, addr1, addr2, phone, email, agreeSms, agreeEmail, day)
+		values(#{id}, #{name}, #{nick}, #{pw}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreeSms}, #{agreeEmail}, now())
+	</insert>
+	<select id="memberList" resultType="java.util.HashMap">
+		select * from math_member
+	</select>
+	<update id="change" parameterType="java.util.HashMap">
+		update math_member set nick = #{nick}, addr1 = #{addr1}, addr2 = #{addr2}, phone = #{phone}, email = #{email}, agreeSms = #{agreeSms},
+		agreeEmail = #{agreeEmail} where id = #{id}
+	</update>
+	<update id="pwChange" parameterType="java.util.HashMap">
+		update math_member set pw = #{pw}, nick = #{nick}, addr1 = #{addr1}, addr2 = #{addr2}, phone = #{phone}, email = #{email},
+		agreeSms = #{agreeSms}, agreeEmail = #{agreeEmail} where id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<insert id="write" parameterType="java.util.HashMap">
+		insert into
+		math_notice(title, content, id, nick, file, filename, day, count)
+		values(#{title}, #{content},  #{id}, #{nick}, #{uuid}, #{fileName}, now(), 0)
+	</insert>
+	<select id="noticeList" resultType="java.util.HashMap">
+		select * from math_notice order by auto desc limit 10 offset #{page}
+	</select>
+	<select id="noticeNew" resultType="java.util.HashMap">
+		select * from math_notice order by auto desc limit 3 offset 0
+	</select>
+	<select id="noticeView" resultType="java.util.HashMap">
+		select * from math_notice where auto = #{num}
+	</select>
+	<insert id="fileUpload" parameterType="java.util.HashMap">
+		insert into
+		math_noticeFile(id, uuid, filename, down)
+		values(#{id}, #{uuid}, #{fileName}, 0)
+	</insert>
+	<select id="noticeCount" resultType="java.lang.Integer">
+		select count(*) from math_notice
+	</select>
+	<update id="modify" parameterType="java.util.HashMap">
+		update math_notice set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="delete">
+		delete from math_notice where auto = #{num}
+	</delete>
+	<select id="noticeOne" resultType="java.util.HashMap">
+		select * from math_notice where auto = #{num}
+	</select>
+	<update id="countUp">
+		update math_notice set count = count+1 where auto = #{num}
+	</update>
+</mapper>
