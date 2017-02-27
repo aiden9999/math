@@ -22,20 +22,22 @@
                 <div class="high_main_gnb">
                     <nav class="gnb_wrap">
                         <div class="gnb">
-                            <a href="high_sub01_01.html">
+                            <a href="/high/info/info">
                                 <span>학원소개</span>
                             </a>
                         </div>
                         <div class="gnb">
-                            <a href="high_sub02_01.html">
+                            <a href="/high/program/program">
                                 <span>프로그램</span>
                             </a>
                         </div>
                         <div class="gnb">
-                            <span>최상위반</span>
+                        	<a href="/high/top/top">
+                            	<span>최상위반</span>
+                            </a>
                         </div>
                         <div class="gnb">
-                            <a href="high_sub04_01.html">
+                            <a href="/high/community/notice">
                                 <span>커뮤니티</span>
                             </a>
                         </div>
@@ -252,15 +254,13 @@
                         </div>
                     </section>
                 </div>
-                <a href="middle_main.html">
-                    <div class="quick_menu">
-                        <img src="img/high_main/quick_menu.png">
-                        <div class="quick_cover"></div>
-                        <div class="img">
-                            <img src="img/high_main/quick_menu_icon.png">
-                        </div>
+                <div class="quick_menu" onclick="location.href='/middle'">
+                    <img src="img/high_main/quick_menu.png">
+                    <div class="quick_cover"></div>
+                    <div class="img">
+                        <img src="img/high_main/quick_menu_icon.png">
                     </div>
-                </a>
+                </div>
             </div>
             
             <footer class="footer">

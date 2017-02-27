@@ -281,15 +281,13 @@
                         </div>
                     </section>
                 </div>
-                <a href="high_main.html">
-                    <div class="quick_menu">
-                        <img src="/img/main/quick_menu.jpg">
-                        <div class="quick_cover"></div>
-                        <div class="img">
-                            <img src="/img/main/quick_menu_icon.png">
-                        </div>
+                <div class="quick_menu" onclick="location.href='/high'">
+                    <img src="/img/main/quick_menu.jpg">
+                    <div class="quick_cover"></div>
+                    <div class="img">
+                        <img src="/img/main/quick_menu_icon.png">
                     </div>
-                </a>
+                </div>
             </div>
             <footer class="middle_footer">
             	<c:import url="/WEB-INF/view/middle/index/footer.jsp"/>

@@ -12,6 +12,7 @@
 
 	<context:component-scan base-package="main"/>
 	<context:component-scan base-package="middle"/>
+	<context:component-scan base-package="high"/>
 	
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		id="beanNameViewResolver" p:order="2" />
