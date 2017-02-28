@@ -7,11 +7,9 @@ import javax.servlet.http.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
 import high.service.*;
-import middle.service.*;
 
 @Controller
 @RequestMapping("/high/community/review")
@@ -22,13 +20,11 @@ public class HReviewController {
 	// 공지사항 메인
 	@RequestMapping("/")
 	public ModelAndView review(){
-		ModelAndView mav = new ModelAndView("/high/community/review/review.jsp");
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/review.jsp");
 		mav.addObject("menu", "review");
-		mav.addObject("hMenu", "hCommunity");
+		mav.addObject("topMenu", "community");
 		List<HashMap> review = ns.reviewList(0);
 		mav.addObject("review", review);
-		List<HashMap> reviewNew = ns.reviewNew();
-		mav.addObject("reviewNew", reviewNew);
 		int n = ns.reviewPage();
 		mav.addObject("reviewPage", n);
 		mav.addObject("selectPage", 1);
@@ -42,9 +38,9 @@ public class HReviewController {
 	// 글 보기
 	@RequestMapping("/view/{num}")
 	public ModelAndView view(@PathVariable(name="num")int num, HttpServletRequest req, HttpServletResponse resp){
-		ModelAndView mav = new ModelAndView("/high/community/review/view.jsp");
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/view.jsp");
 		mav.addObject("menu", "review");
-		mav.addObject("hMenu", "hCommunity");
+		mav.addObject("topMenu", "community");
 		HashMap view = ns.reviewView(num);
 		mav.addObject("view", view);
 		ns.countUp(num, req, resp);
@@ -54,35 +50,27 @@ public class HReviewController {
 	// 글 쓰기
 	@RequestMapping("/write")
 	public ModelAndView write(){
-		ModelAndView mav = new ModelAndView("/high/community/review/write.jsp");
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/write.jsp");
 		mav.addObject("menu", "review");
-		mav.addObject("hMenu", "hCommunity");
+		mav.addObject("topMenu", "community");
 		return mav;
 	}
 	
 	// 글 쓰기 저장
-	@RequestMapping("/writeSave")
-	public ModelAndView write(@RequestParam(name="title")String title, @RequestParam(name="content")String content,
-											@RequestParam(name="file", required=false)MultipartFile file, HttpSession session){
-		ModelAndView mav = new ModelAndView("/high/community/review/review.jsp");
-		HashMap map = new HashMap();
-		map.put("uuid", "null");
-		map.put("fileName", "null");
-		if(!file.isEmpty()){
-			map = ns.fileUUID(file, session);
-		}
-		boolean b = ns.write(title, content, map.get("uuid").toString(), map.get("fileName").toString(), session);
+	@RequestMapping("/writeSave/{title}/{content}")
+	public ModelAndView write(@PathVariable(name="title")String title, @PathVariable(name="content")String content,
+											HttpSession session){
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/review.jsp");
+		boolean b = ns.write(title, content, session);
 		mav.addObject("b", b ? "y" : "n");
 		mav.addObject("menu", "review");
-		mav.addObject("hMenu", "hCommunity");
+		mav.addObject("topMenu", "community");
 		List<HashMap> review = ns.reviewList(0);
 		mav.addObject("review", review);
-		List<HashMap> reviewNew = ns.reviewNew();
-		mav.addObject("reviewNew", reviewNew);
 		int n = ns.reviewPage();
 		mav.addObject("reviewPage", n);
 		mav.addObject("selectPage", 1);
-		int start = 1+(int)((n-1)/10)*10;
+		int start = 1;
 		mav.addObject("start", start);
 		int end = start+9>n? n: start+9;
 		mav.addObject("end", end);
@@ -99,13 +87,11 @@ public class HReviewController {
 	// 페이지 이동
 	@RequestMapping("/page/{num}")
 	public ModelAndView page(@PathVariable(name="num")int num){
-		ModelAndView mav = new ModelAndView("/menu/community/review/review.jsp");
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/review.jsp");
 		mav.addObject("menu", "review");
-		mav.addObject("hMenu", "hCommunity");
+		mav.addObject("topMenu", "community");
 		List<HashMap> review = ns.reviewList(num);
 		mav.addObject("review", review);
-		List<HashMap> reviewNew = ns.reviewNew();
-		mav.addObject("reviewNew", reviewNew);
 		int n = ns.reviewPage();
 		mav.addObject("reviewPage", n);
 		mav.addObject("selectPage", num);
@@ -123,11 +109,39 @@ public class HReviewController {
 		return ns.remove(num);
 	}
 	
-	// 파일 다운
-	@RequestMapping("/down/{num}")
-	public ModelAndView down(@PathVariable(name="num")int num){
-		ModelAndView mav = new ModelAndView("fileDownService");
-		mav.addObject("num", num);
+	// 내글보기
+	@RequestMapping("/myReview/{id}")
+	public ModelAndView myReview(@PathVariable(name="id")String id){
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/myReview.jsp");
+		mav.addObject("menu", "review");
+		mav.addObject("topMenu", "community");
+		List<HashMap> review = ns.myReview(id, 0);
+		mav.addObject("review", review);
+		int n = ns.myPage(id);
+		mav.addObject("reviewPage", n);
+		mav.addObject("selectPage", 1);
+		int start = 1;
+		mav.addObject("start", start);
+		int end = start+9>n? n: start+9;
+		mav.addObject("end", end);
+		return mav;
+	}
+	
+	// 내글보기 페이지 이동
+	@RequestMapping("/myPage/{id}/{num}")
+	public ModelAndView myPage(@PathVariable(name="id")String id, @PathVariable(name="num")int num){
+		ModelAndView mav = new ModelAndView("/high/menu/community/review/myReview.jsp");
+		mav.addObject("menu", "review");
+		mav.addObject("topMenu", "community");
+		List<HashMap> review = ns.myReview(id, num);
+		mav.addObject("review", review);
+		int n = ns.myPage(id);
+		mav.addObject("reviewPage", n);
+		mav.addObject("selectPage", num);
+		int start = 1+(int)((num-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>n? n: start+9;
+		mav.addObject("end", end);
 		return mav;
 	}
 }

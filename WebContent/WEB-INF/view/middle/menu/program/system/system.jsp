@@ -33,15 +33,7 @@
                         </section>
                     </div>
                 </div>
-                <a href="high_main.html">
-                    <div class="quick_menu">
-                        <img src="/img/main/quick_menu.jpg">
-                        <div class="quick_cover"></div>
-                        <div class="img">
-                            <img src="/img/main/quick_menu_icon.png">
-                        </div>
-                    </div>
-                </a>
+                <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
             </div>
             <footer class="middle_footer">
             	<c:import url="/WEB-INF/view/middle/index/footer.jsp"/>

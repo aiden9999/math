@@ -23,9 +23,9 @@ public class NoticeService {
 		SqlSession ss = fac.openSession();
 		List<HashMap> list = new Vector<>();
 		if(num==0){
-			list = ss.selectList("notice.noticeList", 0);
+			list = ss.selectList("notice.noticeListM", 0);
 		} else {
-			list = ss.selectList("notice.noticeList", (num-1)*10);
+			list = ss.selectList("notice.noticeListM", (num-1)*10);
 		}
 		ss.close();
 		return list;
@@ -34,7 +34,7 @@ public class NoticeService {
 	// 공지사항 메인 새글 리스트
 	public List<HashMap> noticeNew() {
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("notice.noticeNew");
+		List<HashMap> list = ss.selectList("notice.noticeNewM");
 		ss.close();
 		return list;
 	}
@@ -42,7 +42,7 @@ public class NoticeService {
 	// 글 보기
 	public HashMap noticeView(int num) {
 		SqlSession ss = fac.openSession();
-		HashMap map = ss.selectOne("notice.noticeView", num);
+		HashMap map = ss.selectOne("notice.noticeViewM", num);
 		ss.close();
 		return map;
 	}
@@ -81,19 +81,20 @@ public class NoticeService {
 	}
 	
 	// 공지사항 저장
-	public boolean write(String title, String content, String uuid, String fileName, HttpSession session) {
+	public boolean write(String title, String content, String uuid, String fileName, String type, HttpSession session) {
 		SqlSession ss = fac.openSession();
 		HashMap<String, String> map = new HashMap<>();
 		map.put("title", title);
 		map.put("content", content);
 		map.put("id", ((HashMap)session.getAttribute("login")).get("id").toString());
 		map.put("nick", ((HashMap)session.getAttribute("login")).get("nick").toString());
+		map.put("type", type);
 		if(!uuid.equals("null") && !fileName.equals("null")){
 			map.put("uuid", uuid);
 			map.put("fileName", fileName);
 		}
 		try{
-			ss.insert("notice.write", map);
+			ss.insert("notice.writeM", map);
 			ss.commit();
 			ss.close();
 			return true;
@@ -108,7 +109,7 @@ public class NoticeService {
 	// 공지사항 페이지
 	public int noticePage() {
 		SqlSession ss = fac.openSession();
-		int n = ss.selectOne("notice.noticeCount");
+		int n = ss.selectOne("notice.noticeCountM");
 		ss.close();
 		n = n%10==0 ? n/10 : n/10+1;
 		return n;
@@ -121,7 +122,7 @@ public class NoticeService {
 		map.put("num", num);
 		map.put("title", title);
 		map.put("content", content);
-		int n = ss.update("notice.modify", map);
+		int n = ss.update("notice.modifyM", map);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -136,7 +137,7 @@ public class NoticeService {
 	// 글 삭제
 	public boolean remove(int num) {
 		SqlSession ss = fac.openSession();
-		int n = ss.delete("notice.delete", num);
+		int n = ss.delete("notice.deleteM", num);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -154,7 +155,7 @@ public class NoticeService {
 		Cookie[] ar = req.getCookies();
 		int n = 0;
 		for(Cookie c : ar){
-			if(c.getName().toString().equals("notice"+num)){
+			if(c.getName().toString().equals("noticeM"+num)){
 				if(c.getValue().toString().equals(Integer.toString(num))){
 					n++;
 					break;
@@ -162,10 +163,10 @@ public class NoticeService {
 			}
 		}
 		if(n==0){
-			ss.update("notice.countUp", num);
+			ss.update("notice.countUpM", num);
 			ss.commit();
 			ss.close();
-			Cookie c = new Cookie("notice"+num, Integer.toString(num));
+			Cookie c = new Cookie("noticeM"+num, Integer.toString(num));
 			c.setMaxAge(60*60);
 			c.setPath("/");
 			resp.addCookie(c);

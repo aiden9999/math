@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="info">
+	<insert id="writeM" parameterType="java.util.HashMap">
+		insert into
+		math_info(title, content, id, nick, file, filename, day, count)
+		values(#{title}, #{content},  #{id}, #{nick}, #{uuid}, #{fileName}, now(), 0)
+	</insert>
+	<insert id="writeH" parameterType="java.util.HashMap">
+		insert into
+		math_infoh(title, content, id, nick, file, filename, day, count)
+		values(#{title}, #{content},  #{id}, #{nick}, #{uuid}, #{fileName}, now(), 0)
+	</insert>
+	<select id="infoListM" resultType="java.util.HashMap">
+		select * from math_info order by auto desc limit 5 offset #{page}
+	</select>
+	<select id="infoListH" resultType="java.util.HashMap">
+		select * from math_infoh order by auto desc limit 5 offset #{page}
+	</select>
+	<select id="infoAllM" resultType="java.util.HashMap">
+		select * from math_info order by auto desc
+	</select>
+	<select id="infoAllH" resultType="java.util.HashMap">
+		select * from math_infoh order by auto desc
+	</select>
+	<select id="infoViewM" resultType="java.util.HashMap">
+		select * from math_info where auto = #{num}
+	</select>
+	<select id="infoViewH" resultType="java.util.HashMap">
+		select * from math_infoh where auto = #{num}
+	</select>
+	<select id="lastViewM" resultType="java.util.HashMap">
+		select * from math_info order by auto desc limit 1 offset 0
+	</select>
+	<select id="lastViewH" resultType="java.util.HashMap">
+		select * from math_infoh order by auto desc limit 1 offset 0
+	</select>
+	<insert id="fileUploadM" parameterType="java.util.HashMap">
+		insert into
+		math_infoFile(id, uuid, filename, down)
+		values(#{id}, #{uuid}, #{fileName}, 0)
+	</insert>
+	<insert id="fileUploadH" parameterType="java.util.HashMap">
+		insert into
+		math_infoFileh(id, uuid, filename, down)
+		values(#{id}, #{uuid}, #{fileName}, 0)
+	</insert>
+	<select id="infoCountM" resultType="java.lang.Integer">
+		select count(*) from math_info
+	</select>
+	<select id="infoCountH" resultType="java.lang.Integer">
+		select count(*) from math_infoh
+	</select>
+	<update id="modifyM" parameterType="java.util.HashMap">
+		update math_info set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<update id="modifyH" parameterType="java.util.HashMap">
+		update math_infoh set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="deleteM">
+		delete from math_info where auto = #{num}
+	</delete>
+	<delete id="deleteH">
+		delete from math_infoh where auto = #{num}
+	</delete>
+	<select id="infoOneM" resultType="java.util.HashMap">
+		select * from math_info where auto = #{num}
+	</select>
+	<select id="infoOneH" resultType="java.util.HashMap">
+		select * from math_infoh where auto = #{num}
+	</select>
+	<update id="countUpM">
+		update math_info set count = count+1 where auto = #{num}
+	</update>
+	<update id="countUpH">
+		update math_infoh set count = count+1 where auto = #{num}
+	</update>
+</mapper>

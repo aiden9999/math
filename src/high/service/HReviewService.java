@@ -23,18 +23,10 @@ public class HReviewService {
 		SqlSession ss = fac.openSession();
 		List<HashMap> list = new Vector<>();
 		if(num==0){
-			list = ss.selectList("review.reviewList", 0);
+			list = ss.selectList("review.reviewListH", 0);
 		} else {
-			list = ss.selectList("review.reviewList", (num-1)*10);
+			list = ss.selectList("review.reviewListH", (num-1)*10);
 		}
-		ss.close();
-		return list;
-	}
-	
-	// 공지사항 메인 새글 리스트
-	public List<HashMap> reviewNew() {
-		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("review.reviewNew");
 		ss.close();
 		return list;
 	}
@@ -42,58 +34,21 @@ public class HReviewService {
 	// 글 보기
 	public HashMap reviewView(int num) {
 		SqlSession ss = fac.openSession();
-		HashMap map = ss.selectOne("review.reviewView", num);
+		HashMap map = ss.selectOne("review.reviewViewH", num);
 		ss.close();
 		return map;
 	}
 
-	// 첨부파일 uuid 생성 및 저장
-	public HashMap<String, String> fileUUID(MultipartFile file, HttpSession session) {
-		if(file.isEmpty()){
-			return null;
-		}
-		try{
-			String uuid = UUID.randomUUID().toString();
-			String filename = uuid.substring(0,10);
-			String fileDir = application.getRealPath("/reviewFile");
-			File f = new File(fileDir, filename);
-			file.transferTo(f);
-			SqlSession ss = fac.openSession();
-			HashMap<String, String> map = new HashMap<>();
-			map.put("id", ((HashMap)session.getAttribute("login")).get("id").toString());
-			map.put("uuid", filename);
-			map.put("fileName", file.getOriginalFilename());
-			try{
-				ss.insert("review.fileUpload", map);
-				ss.commit();
-				ss.close();
-				return map;
-			} catch(Exception e){
-				e.printStackTrace();
-				ss.rollback();
-				ss.close();
-			}
-			return map;
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
 	// 공지사항 저장
-	public boolean write(String title, String content, String uuid, String fileName, HttpSession session) {
+	public boolean write(String title, String content,HttpSession session) {
 		SqlSession ss = fac.openSession();
 		HashMap<String, String> map = new HashMap<>();
 		map.put("title", title);
 		map.put("content", content);
 		map.put("id", ((HashMap)session.getAttribute("login")).get("id").toString());
 		map.put("nick", ((HashMap)session.getAttribute("login")).get("nick").toString());
-		if(!uuid.equals("null") && !fileName.equals("null")){
-			map.put("uuid", uuid);
-			map.put("fileName", fileName);
-		}
 		try{
-			ss.insert("review.write", map);
+			ss.insert("review.writeH", map);
 			ss.commit();
 			ss.close();
 			return true;
@@ -108,7 +63,7 @@ public class HReviewService {
 	// 공지사항 페이지
 	public int reviewPage() {
 		SqlSession ss = fac.openSession();
-		int n = ss.selectOne("review.reviewCount");
+		int n = ss.selectOne("review.reviewCountH");
 		ss.close();
 		n = n%10==0 ? n/10 : n/10+1;
 		return n;
@@ -121,7 +76,7 @@ public class HReviewService {
 		map.put("num", num);
 		map.put("title", title);
 		map.put("content", content);
-		int n = ss.update("review.modify", map);
+		int n = ss.update("review.modifyH", map);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -136,7 +91,7 @@ public class HReviewService {
 	// 글 삭제
 	public boolean remove(int num) {
 		SqlSession ss = fac.openSession();
-		int n = ss.delete("review.delete", num);
+		int n = ss.delete("review.deleteH", num);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -154,7 +109,7 @@ public class HReviewService {
 		Cookie[] ar = req.getCookies();
 		int n = 0;
 		for(Cookie c : ar){
-			if(c.getName().toString().equals("review"+num)){
+			if(c.getName().toString().equals("reviewH"+num)){
 				if(c.getValue().toString().equals(Integer.toString(num))){
 					n++;
 					break;
@@ -162,13 +117,37 @@ public class HReviewService {
 			}
 		}
 		if(n==0){
-			ss.update("review.countUp", num);
+			ss.update("review.countUpH", num);
 			ss.commit();
 			ss.close();
-			Cookie c = new Cookie("review"+num, Integer.toString(num));
+			Cookie c = new Cookie("reviewH"+num, Integer.toString(num));
 			c.setMaxAge(60*60);
 			c.setPath("/");
 			resp.addCookie(c);
 		}
+	}
+	
+	// 내글보기
+	public List<HashMap> myReview(String id, int page) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		if(page==0){
+			map.put("page", page);
+		} else {
+			map.put("page", (page-1)*10);
+		}
+		List<HashMap> list = ss.selectList("review.myReviewH", map);
+		ss.close();
+		return list;
+	}
+
+	// 내글 페이지
+	public int myPage(String id) {
+		SqlSession ss = fac.openSession();
+		int n = ss.selectOne("review.myReviewCountH", id);
+		ss.close();
+		n = n%10==0 ? n/10 : n/10+1;
+		return n;
 	}
 }

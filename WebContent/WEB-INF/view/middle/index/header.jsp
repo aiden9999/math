@@ -28,7 +28,7 @@
                     <span>커뮤니티</span>
                 </a>
             </li>
-            <li class="gnb" id="special">
+            <li class="gnb" id="special" onclick="javascript: alert('준비중입니다.')">
                 <span>특목고</span>
             </li>
         </ul>

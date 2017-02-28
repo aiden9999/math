@@ -25,6 +25,11 @@
 		<c:otherwise>
 			<div class="hmenu_wrap">
 		        <ul>
+		        	<li>
+		                <a href="/info">
+		                    <span>내정보</span>
+		                </a>
+		            </li>
 		            <li>
 		                <a href="/logout">
 		                    <span>로그아웃</span>

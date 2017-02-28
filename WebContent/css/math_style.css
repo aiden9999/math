@@ -58,6 +58,13 @@ textarea { resize: none; }
 
 .visit { width: 100px; height: 20px; font-size: 12px; display: inline-block; margin-left: 10px; top: 15px; }
 
+.delete_cover { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: #293745; opacity: 0.7; z-index: 8; display: none; }
+.delete_confirm { position: fixed; width: 400px; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); border: 1px solid #293856; display: none; z-index: 9; background-color: #fff; }
+.delete_confirm .delete_confirm_header { border-bottom: 1px solid #293856; }
+.delete_confirm .delete_confirm_header .logo { width: 180px; margin: 0 auto; padding: 6px 0; }
+.delete_confirm .delete_confirm_contents .delete_txt { font-size: 20px; color: #293745; font-family: 'namsanM'; font-weight: bold; text-align: center; padding: 30px 0; }
+.delete_confirm .delete_confirm_contents .m1 { margin: 20px auto; }
+
 footer { width: 100%; border-top: 1px solid #000; padding-bottom: 15px; }
 footer .inner { width: 900px; margin: 0 auto; font-size: 0; }
 footer .logo { display: inline-block; margin-top: 21px; }
@@ -127,7 +134,7 @@ footer .copyright { display: inline-block; vertical-align: top; font-size: 14px;
 .board_info_wrap .board_info_txt .txt:last-child { border: none; }
 .board_modify_wrap { text-align: right; margin: 10px 0 0; }
 .board_modify_wrap .modify_txt { font-size: 13px; display: inline-block; padding: 1px 8px; border-right: 2px solid #d2d2d2; }
-.board_modify_wrap .modify_txt:nth-child(2) { border: none; }
+.board_modify_wrap .modify_txt:last-child { border: none; }
 .board_modify_wrap .modify_txt span { cursor: pointer; }
 
 .community_review_wrap { border-bottom: 1px solid #d9d9d9; }
@@ -167,7 +174,7 @@ footer .copyright { display: inline-block; vertical-align: top; font-size: 14px;
 .btn_wrap.m1 .right { background-color: #293745; color: #fff; border: none; padding: 3px 0; }
 
 .write_btn_wrap { width: 100%; display: inline-block; margin: 10px 0 10px; }
-.write_btn { width: 93px; border: 1px solid #214783; border-radius: 3px; cursor: pointer; float: right; background-color: #fff; }
+.write_btn { width: 93px; border: 1px solid #214783; border-radius: 3px; cursor: pointer; float: right; background-color: #fff; margin: 0 5px; }
 .write_btn .txt { font-size: 15px; text-align: center; padding: 6px 0; font-weight: bold; }
 
 .send_btn { width: 96px; cursor: pointer; background-color: #293745; margin: 12px auto 0; }

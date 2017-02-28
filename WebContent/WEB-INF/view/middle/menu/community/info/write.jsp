@@ -15,21 +15,21 @@
      
     <body>
         <div id="wrapper">
-            <header class="middle_header high_header high_header2">
-            	<c:import url="/WEB-INF/view/high/index/header2.jsp"/>
+            <header class="middle_header">
+            	<c:import url="/WEB-INF/view/middle/index/header.jsp"/>
             </header>
-            <div class="sub_all high_sub high_sub04_01">
+            <div class="sub_all middle_sub03_01_01">
                 <div class="inner">
                     <aside class="side_menu">
-                    	<c:import url="/WEB-INF/view/high/menu/community/aside.jsp"/>
+                    	<c:import url="/WEB-INF/view/middle/menu/community/aside.jsp"/>
                     </aside>
                     <div class="contents">
                         <section class="contents_tit">
-                            <div class="tit">공지사항</div>
-                            <div class="txt">Home > 커뮤니티 > 공지사항</div>
+                            <div class="tit">입시정보</div>
+                            <div class="txt">Home > 커뮤니티 > 입시정보</div>
                         </section>
-                        <form action="/high/community/notice/writeSave" enctype="multipart/form-data" method="post" id="form">
-                        	<input type="hidden" name="type" value="high"/>
+                        <form action="/middle/community/info/writeSave" enctype="multipart/form-data" method="post" id="form">
+                        	<input type="hidden" name="type" value="middle"/>
 	                        <section class="section01">
 	                            <div class="board_tit">
 	                                <div class="tit">제목</div>
@@ -56,7 +56,7 @@
                         </form>
                     </div>
                 </div>
-                <c:import url="/WEB-INF/view/high/index/quick.jsp"/>
+                <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
             </div>
             <footer class="middle_footer">
             	<c:import url="/WEB-INF/view/main/footer.jsp"/>

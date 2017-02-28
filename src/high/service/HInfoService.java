@@ -12,39 +12,118 @@ import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
 @Component
-public class HNoticeService {
+public class HInfoService {
 	@Autowired
 	SqlSessionFactory fac;
 	@Autowired
 	ServletContext application;
 	
 	// 공지사항 메인 글 리스트
-	public List<HashMap> noticeList(int num){
+	public List<HashMap> infoList(int num){
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = new Vector<>();
+		List<HashMap> list = ss.selectList("info.infoAllH");
+		List<Integer> auto = new Vector<>();
+		for(HashMap m : list){
+			auto.add(Integer.parseInt(m.get("auto").toString()));
+		}
+		List<HashMap> list2 = new Vector<>();
+		int n = list.size()>5 ? 5 : list.size();
 		if(num==0){
-			list = ss.selectList("notice.noticeListH", 0);
+			for(int i=0; i<n; i++){
+				list2.add(list.get(i));
+			}
 		} else {
-			list = ss.selectList("notice.noticeListH", (num-1)*10);
+			for(int i=0; i<list.size(); i++){
+				if(list.get(i).get("auto").toString().equals(Integer.toString(num))){
+					if(i==list.size()-1){
+						for(int j=n-1; j>n-6; j--){
+							int a = 0;
+							if((i-j)>(list.size()-1) || (i-j)<0){
+								a++;
+							}
+							if(a==0){
+								list2.add(list.get(i-j));
+							}
+						}
+						break;
+					} else if(i==list.size()-2){
+						for(int j=n-2; j>n-7; j--){
+							int a = 0;
+							if((i-j)>(list.size()-1) || (i-j)<0){
+								a++;
+							}
+							if(a==0){
+								list2.add(list.get(i-j));
+							}
+						}
+						break;
+					} else if(i==0){
+						for(int j=n-5; j<n; j++){
+							int a = 0;
+							if((i-j)>(list.size()-1) || (i+j)<0){
+								a++;
+							}
+							if(a==0){
+								list2.add(list.get(i+j));
+							}
+						}
+						break;
+					} else if(i==1){
+						for(int j=n-6; j<n-1; j++){
+							int a = 0;
+							if((i-j)>(list.size()-1) || (i+j)<0){
+								a++;
+							}
+							if(a==0){
+								list2.add(list.get(i+j));
+							}
+						}
+						break;
+					} else {
+						for(int j=n-7; j<n-2; j++){
+							int a = 0;
+							if((i-j)>(list.size()-1) || (i+j)<0){
+								a++;
+							}
+							if(a==0){
+								list2.add(list.get(i+j));
+							}
+						}
+						break;
+					}
+				}
+			}
 		}
 		ss.close();
-		return list;
+		return list2;
 	}
 	
-	// 공지사항 메인 새글 리스트
-	public List<HashMap> noticeNew() {
+	// 이전 다음 페이지 분할
+	public List<Integer> seperate(){
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("notice.noticeNewH");
+		List<HashMap> list = ss.selectList("info.infoAllH");
+		List<Integer> auto = new Vector<>();
+		for(HashMap m : list){
+			auto.add(Integer.parseInt(m.get("auto").toString()));
+		}
 		ss.close();
-		return list;
+		return auto;
 	}
-
-	// 글 보기
-	public HashMap noticeView(int num) {
+	
+	// 마지막글 보기
+	public HashMap lastView(){
 		SqlSession ss = fac.openSession();
-		HashMap map = ss.selectOne("notice.noticeViewH", num);
+		HashMap view = ss.selectOne("info.lastViewH");
 		ss.close();
-		return map;
+		return view;
+	}
+	
+	// 글 갯수
+	public int page(){
+		SqlSession ss = fac.openSession();
+		int n = ss.selectOne("info.infoCountH");
+		ss.close();
+		return n;
 	}
 
 	// 첨부파일 uuid 생성 및 저장
@@ -55,7 +134,7 @@ public class HNoticeService {
 		try{
 			String uuid = UUID.randomUUID().toString();
 			String filename = uuid.substring(0,10);
-			String fileDir = application.getRealPath("/noticeFile");
+			String fileDir = application.getRealPath("/infoFile");
 			File f = new File(fileDir, filename);
 			file.transferTo(f);
 			SqlSession ss = fac.openSession();
@@ -64,7 +143,7 @@ public class HNoticeService {
 			map.put("uuid", filename);
 			map.put("fileName", file.getOriginalFilename());
 			try{
-				ss.insert("notice.fileUpload", map);
+				ss.insert("info.fileUpload", map);
 				ss.commit();
 				ss.close();
 				return map;
@@ -94,7 +173,7 @@ public class HNoticeService {
 			map.put("fileName", fileName);
 		}
 		try{
-			ss.insert("notice.writeH", map);
+			ss.insert("info.writeH", map);
 			ss.commit();
 			ss.close();
 			return true;
@@ -105,14 +184,17 @@ public class HNoticeService {
 			return false;
 		}
 	}
+	
+	
+	
+	
 
-	// 공지사항 페이지
-	public int noticePage() {
+	// 글 보기
+	public HashMap infoView(int num) {
 		SqlSession ss = fac.openSession();
-		int n = ss.selectOne("notice.noticeCountH");
+		HashMap map = ss.selectOne("info.infoViewH", num);
 		ss.close();
-		n = n%10==0 ? n/10 : n/10+1;
-		return n;
+		return map;
 	}
 
 	// 글 수정
@@ -122,7 +204,7 @@ public class HNoticeService {
 		map.put("num", num);
 		map.put("title", title);
 		map.put("content", content);
-		int n = ss.update("notice.modifyH", map);
+		int n = ss.update("info.modifyH", map);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -137,7 +219,7 @@ public class HNoticeService {
 	// 글 삭제
 	public boolean remove(int num) {
 		SqlSession ss = fac.openSession();
-		int n = ss.delete("notice.deleteH", num);
+		int n = ss.delete("info.deleteH", num);
 		if(n>0){
 			ss.commit();
 			ss.close();
@@ -155,7 +237,7 @@ public class HNoticeService {
 		Cookie[] ar = req.getCookies();
 		int n = 0;
 		for(Cookie c : ar){
-			if(c.getName().toString().equals("noticeH"+num)){
+			if(c.getName().toString().equals("infoH"+num)){
 				if(c.getValue().toString().equals(Integer.toString(num))){
 					n++;
 					break;
@@ -163,10 +245,10 @@ public class HNoticeService {
 			}
 		}
 		if(n==0){
-			ss.update("notice.countUpH", num);
+			ss.update("info.countUpH", num);
 			ss.commit();
 			ss.close();
-			Cookie c = new Cookie("noticeH"+num, Integer.toString(num));
+			Cookie c = new Cookie("infoH"+num, Integer.toString(num));
 			c.setMaxAge(60*60);
 			c.setPath("/");
 			resp.addCookie(c);

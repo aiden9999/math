@@ -16,6 +16,8 @@ public class CommunityController {
 	NoticeService ns;
 	@Autowired
 	ReviewService rs;
+	@Autowired
+	InfoService is;
 	
 	// 공지사항
 	@RequestMapping("/notice")
@@ -61,6 +63,14 @@ public class CommunityController {
 		ModelAndView mav = new ModelAndView("/middle/menu/community/info/info.jsp");
 		mav.addObject("menu", "info");
 		mav.addObject("topMenu", "community");
+		HashMap view = is.lastView();
+		mav.addObject("view", view);
+		List<HashMap> list = is.infoList(0);
+		mav.addObject("list", list);
+		int count = is.page();
+		mav.addObject("count", count);
+		List<Integer> sep = is.seperate();
+		mav.addObject("sep", sep);
 		return mav;
 	}
 }

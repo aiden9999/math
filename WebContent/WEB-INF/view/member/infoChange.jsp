@@ -365,7 +365,7 @@
     						success : function(txt){
     							if(txt){
     								alert("변경되었습니다.");
-    								location.reload();
+    								location.href="/info";
     							} else {
     								alert("변경에 실패하였습니다.\n잠시후 다시 시도해주세요.");
     							}

@@ -71,8 +71,8 @@
 		                            <div class="write_btn" onclick="writeReview()">
 		                                <div class="txt">글쓰기</div>
 		                            </div>
-		                            <div class="write_btn" onclick="myReview()">
-		                                <div class="txt">내글보기</div>
+		                            <div class="write_btn" onclick="location.href='/high/community/review'">
+		                                <div class="txt">전체보기</div>
 		                            </div>
 		                        </div>
 	                        </c:if>
@@ -153,15 +153,15 @@
     	}
     	// 페이지 이동
     	function page(num){
-    		location.href="/high/community/review/page/"+num;
+    		location.href="/high/community/review/myPage/${login.id }/"+num;
     	}
     	// 이전
     	function prev(num){
-    		location.href="/high/community/review/page/"+(num-10);
+    		location.href="/high/community/review/myPage/${login.id }/"+(num-10);
     	}
     	// 다음
     	function next(num){
-    		location.href="/high/community/review/page/"+(num+10);
+    		location.href="/high/community/review/myPage/${login.id }/"+(num+10);
     	}
     	// 글 보기
     	function view(num){
@@ -171,10 +171,6 @@
     		} else {
     			location.href='/high/community/review/view/'+num;
     		}
-    	}
-    	// 내글보기
-    	function myReview(){
-    		location.href="/high/community/review/myReview/${login.id }";
     	}
     </script>
     

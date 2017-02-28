@@ -52,13 +52,11 @@
 			                                		</c:when>
 			                                		<c:otherwise>
 					                                    <div class="txt">
-					                                        ${t.content.substring }
+					                                        ${t.content }
 					                                    </div>
 			                                		</c:otherwise>
 			                                	</c:choose>
-			                                    <div class="review_more">
-			                                        +더보기
-			                                    </div>
+			                                    <div class="review_more" onclick="view(${t.auto })">+더보기</div>
 			                                </div>
 			                            </div>
 			                        </div>
@@ -70,12 +68,13 @@
                     	</c:choose>
                         
                         <c:if test="${login != null }">
-	                        <div class="write_btn_wrap">
-	                            <a href="middle_sub03_02_01.html">
-	                                <div class="write_btn">
-	                                    <div class="txt">글쓰기</div>
-	                                </div>
-	                            </a>
+                        	<div class="write_btn_wrap">
+	                            <div class="write_btn" onclick="writeReview()">
+	                                <div class="txt">글쓰기</div>
+	                            </div>
+	                            <div class="write_btn" onclick="myReview()">
+	                                <div class="txt">내글보기</div>
+	                            </div>
 	                        </div>
                         </c:if>
                         <div class="page_sel_wrap">
@@ -106,29 +105,21 @@
                             	</c:if>
                             </div>
                         </div>
-                        <div class="search_wrap">
-                            <select id="search">
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                                <option value="nick">작성자</option>
-                            </select>
-                            <input type="text" id="search">
-                            <div class="search_btn" onclick="search()">
-                                <img src="/img/middle_sub03/03_02/search_icon.png">
-                            </div>
-                        </div>
+<!--                         <div class="search_wrap"> -->
+<!--                             <select id="type"> -->
+<!--                                 <option value="title">제목</option> -->
+<!--                                 <option value="content">내용</option> -->
+<!--                                 <option value="nick">작성자</option> -->
+<!--                             </select> -->
+<!--                             <input type="text" id="search"> -->
+<!--                             <div class="search_btn" onclick="search()"> -->
+<!--                                 <img src="/img/middle_sub03/03_02/search_icon.png"> -->
+<!--                             </div> -->
+<!--                         </div> -->
                     </section>
                 </div>
             </div>
-            <a href="high_main.html">
-                <div class="quick_menu" >
-                    <img src="/img/main/quick_menu.jpg">
-                    <div class="quick_cover"></div>
-                    <div class="img">
-                        <img src="/img/main/quick_menu_icon.png">
-                    </div>
-                </div>
-            </a>
+            <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
         </div>
         <footer class="middle_footer">
         	<c:import url="/WEB-INF/view/middle/index/footer.jsp"/>
@@ -156,17 +147,21 @@
    				alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
    			}
     	});
+    	// 글쓰기
+    	function writeReview(){
+    		location.href="/middle/community/review/write";
+    	}
     	// 페이지 이동
     	function page(num){
-    		location.href="/informat/page/"+num;
+    		location.href="/middle/community/review/page/"+num;
     	}
     	// 이전
     	function prev(num){
-    		location.href="/informat/page/"+(num-10);
+    		location.href="/middle/community/review/page/"+(num-10);
     	}
     	// 다음
     	function next(num){
-    		location.href="/informat/page/"+(num+10);
+    		location.href="/middle/community/review/page/"+(num+10);
     	}
     	// 글 보기
     	function view(num){
@@ -174,9 +169,19 @@
     			alert("로그인 후 이용가능합니다.");
     			location.href="/login";
     		} else {
-    			location.href='/informat/view/'+num;
+    			location.href='/middle/community/review/view/'+num;
     		}
     	}
+    	// 내글보기
+    	function myReview(){
+    		location.href="/middle/community/review/myReview/${login.id }";
+    	}
+    	// 검색
+//     	function search(){
+//     		var search = $("#search").val();
+//     		var type = $("#type").val();
+//     		location.href="/middle/community/review/search/"+type+"/"+search;
+//     	}
     </script>
     
 </html>

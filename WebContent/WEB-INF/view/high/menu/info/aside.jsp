@@ -26,7 +26,8 @@
             </a>
         </li>
         <li id="teacherTab">
-        	<a href="/high/info/teacher">
+<!--         	<a href="/high/info/teacher"> -->
+        	<a onclick="javascript: alert('준비중입니다.')">
             	<span>선생님소개</span>
             </a>
         </li>

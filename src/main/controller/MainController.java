@@ -13,7 +13,7 @@ import main.service.*;
 
 @Controller
 @RequestMapping("/")
-public class MainContrller {
+public class MainController {
 	@Autowired
 	MainService ms;
 

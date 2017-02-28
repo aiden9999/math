@@ -39,22 +39,23 @@
                                 
                                 <c:choose>
                                 	<c:when test="${notice.size() > 0 }">
-		                                <c:forEach var="t" items="${noticeNew }"></c:forEach>
-		                                <div class="bbs bbs_new">
-		                                    <div class="txt bbs_number">
-		                                        <img src="/img/middle_sub03/03_01/board_new.png">
-		                                    </div>
-		                                    <div class="txt bbs_tit">
-		                                        <span>${t.title }</span>
-		                                    </div>
-		                                    <div class="txt bbs_name">${t.nick }</div>
-		                                    <div class="txt bbs_date">${t.day }</div>
-		                                </div>
+		                                <c:forEach var="t" items="${noticeNew }">
+			                                <div class="bbs bbs_new">
+			                                    <div class="txt bbs_number">
+			                                        <img src="/img/middle_sub03/03_01/board_new.png">
+			                                    </div>
+			                                    <div class="txt bbs_tit" onclick="view(${t.auto })">
+			                                        <span>${t.title }</span>
+			                                    </div>
+			                                    <div class="txt bbs_name">${t.nick }</div>
+			                                    <div class="txt bbs_date">${t.day }</div>
+			                                </div>
+		                                </c:forEach>
                                 		
                                 		<c:forEach var="t" items="${notice }">
 	                                		<div class="bbs">
 			                                    <div class="txt bbs_number">${t.auto }</div>
-			                                    <div class="txt bbs_tit">
+			                                    <div class="txt bbs_tit" onclick="view(${t.auto })">
 			                                        <span>${t.title }</span>
 			                                    </div>
 			                                    <div class="txt bbs_name">${t.nick }</div>
@@ -107,15 +108,7 @@
                         </section>
                     </div>
                 </div>
-                <a href="high_main.html">
-                    <div class="quick_menu">
-                        <img src="/img/main/quick_menu.jpg">
-                        <div class="quick_cover"></div>
-                        <div class="img">
-                            <img src="/img/main/quick_menu_icon.png">
-                        </div>
-                    </div>
-                </a>
+                <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
             </div>
             <footer class="middle_footer">
             	<c:import url="/WEB-INF/view/middle/index/footer.jsp"/>
@@ -160,7 +153,7 @@
     	function view(num){
     		if(${login == null}){
     			alert("로그인 후 이용가능합니다.");
-    			location.href="/login";
+    			location.href="/${type }";
     		} else {
     			location.href='/middle/community/notice/view/'+num;
     		}

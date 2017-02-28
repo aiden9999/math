@@ -25,6 +25,11 @@
 		<c:otherwise>
 			<div class="hmenu_wrap">
 		        <ul>
+		        	<li>
+		                <a href="/info">
+		                    <span>내정보</span>
+		                </a>
+		            </li>
 		            <li>
 		                <a href="/logout">
 		                    <span>로그아웃</span>
@@ -54,7 +59,8 @@
                 </a>
             </li>
             <li class="gnb" id="top">
-            	<a href="/high/top/top">
+<!--             	<a href="/high/top/top"> -->
+            	<a onclick="javascript: alert('준비중입니다.')">
                 	<span>최상위반</span>
                 </a>
             </li>

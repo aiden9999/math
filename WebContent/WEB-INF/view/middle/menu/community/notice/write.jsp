@@ -28,11 +28,12 @@
                             <div class="tit">공지사항</div>
                             <div class="txt">Home > 커뮤니티 > 공지사항</div>
                         </section>
-                        <form action="/notice/writeSave" enctype="multipart/form-data" method="post" id="form">
+                        <form action="/middle/community/notice/writeSave" enctype="multipart/form-data" method="post" id="form">
+                        	<input type="hidden" name="type" value="middle"/>
 	                        <section class="section01">
 	                            <div class="board_tit">
 	                                <div class="tit">제목</div>
-	                                <input type="text" id="title" placeholder="제목 입력란">
+	                                <input type="text" id="title" name="title" placeholder="제목 입력란">
 	                            </div>
 	                            <div class="board_add_wrap">
 	                                <div class="add">파일첨부</div>
@@ -41,7 +42,7 @@
 	                                <input type="file" name="file" id="addFile" class="board_add_hidden">
 	                            </div>
 	                            <div class="board_contents_wrap">
-	                                <textarea placeholder="내용을 입력해주세요" name="content"></textarea>
+	                                <textarea placeholder="내용을 입력해주세요" name="content" id="content"></textarea>
 	                            </div>
 	                            <div class="btn_wrap m1">
 	                                <div class="btn left" onclick="history.back()">
@@ -55,15 +56,7 @@
                         </form>
                     </div>
                 </div>
-                <a href="high_main.html">
-                    <div class="quick_menu">
-                        <img src="/img/main/quick_menu.jpg">
-                        <div class="quick_cover"></div>
-                        <div class="img">
-                            <img src="/img/main/quick_menu_icon.png">
-                        </div>
-                    </div>
-                </a>
+                <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
             </div>
             <footer class="middle_footer">
             	<c:import url="/WEB-INF/view/main/footer.jsp"/>
@@ -81,7 +74,7 @@
    			} else if(content.length==0){
    				alert('내용을 입력해주세요.');
    			} else {
-   				
+   				$("#form").submit();
    			}
     	}
     </script>

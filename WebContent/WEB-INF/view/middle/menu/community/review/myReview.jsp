@@ -15,13 +15,13 @@
      
     <body>
         <div id="wrapper">
-            <header class="middle_header high_header high_header2">
-            	<c:import url="/WEB-INF/view/high/index/header2.jsp"/>
+            <header class="middle_header">
+            	<c:import url="/WEB-INF/view/middle/index/header.jsp"/>
             </header>
-            <div class="sub_all high_sub high_sub04_02">
+            <div class="sub_all middle_sub03_02">
                 <div class="inner">
                     <aside class="side_menu">
-                    	<c:import url="/WEB-INF/view/high/menu/community/aside.jsp"/>
+                    	<c:import url="/WEB-INF/view/middle/menu/community/aside.jsp"/>
                     </aside>
                     <div class="contents">
                         <section class="contents_tit">
@@ -71,8 +71,8 @@
 		                            <div class="write_btn" onclick="writeReview()">
 		                                <div class="txt">글쓰기</div>
 		                            </div>
-		                            <div class="write_btn" onclick="myReview()">
-		                                <div class="txt">내글보기</div>
+		                            <div class="write_btn" onclick="location.href='/middle/community/review'">
+		                                <div class="txt">전체보기</div>
 		                            </div>
 		                        </div>
 	                        </c:if>
@@ -118,10 +118,10 @@
                         </section>
                     </div>
                 </div>
-                <c:import url="/WEB-INF/view/high/index/quick.jsp"/>
+                <c:import url="/WEB-INF/view/middle/index/quick.jsp"/>
             </div>
             <footer class="middle_footer">
-            	<c:import url="/WEB-INF/view/high/index/footer.jsp"/>
+            	<c:import url="/WEB-INF/view/middle/index/footer.jsp"/>
             </footer>
         </div>
     </body>
@@ -149,32 +149,28 @@
     	});
     	// 글쓰기
     	function writeReview(){
-    		location.href="/high/community/review/write";
+    		location.href="/middle/community/review/write";
     	}
     	// 페이지 이동
     	function page(num){
-    		location.href="/high/community/review/page/"+num;
+    		location.href="/middle/community/review/myPage/${login.id }/"+num;
     	}
     	// 이전
     	function prev(num){
-    		location.href="/high/community/review/page/"+(num-10);
+    		location.href="/middle/community/review/myPage/${login.id }/"+(num-10);
     	}
     	// 다음
     	function next(num){
-    		location.href="/high/community/review/page/"+(num+10);
+    		location.href="/middle/community/review/myPage/${login.id }/"+(num+10);
     	}
     	// 글 보기
     	function view(num){
     		if(${login == null}){
     			alert("로그인 후 이용가능합니다.");
-    			location.href="/high/login";
+    			location.href="/middle/login";
     		} else {
-    			location.href='/high/community/review/view/'+num;
+    			location.href='/middle/community/review/view/'+num;
     		}
-    	}
-    	// 내글보기
-    	function myReview(){
-    		location.href="/high/community/review/myReview/${login.id }";
     	}
     </script>
     

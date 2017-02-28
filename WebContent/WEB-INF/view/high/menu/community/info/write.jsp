@@ -25,10 +25,10 @@
                     </aside>
                     <div class="contents">
                         <section class="contents_tit">
-                            <div class="tit">공지사항</div>
-                            <div class="txt">Home > 커뮤니티 > 공지사항</div>
+                            <div class="tit">입시정보</div>
+                            <div class="txt">Home > 커뮤니티 > 입시정보</div>
                         </section>
-                        <form action="/high/community/notice/writeSave" enctype="multipart/form-data" method="post" id="form">
+                        <form action="/high/community/info/writeSave" enctype="multipart/form-data" method="post" id="form">
                         	<input type="hidden" name="type" value="high"/>
 	                        <section class="section01">
 	                            <div class="board_tit">

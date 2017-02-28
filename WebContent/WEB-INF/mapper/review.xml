@@ -1,33 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
-	<insert id="write" parameterType="java.util.HashMap">
+	<insert id="writeM" parameterType="java.util.HashMap">
 		insert into
 		math_review(title, content, id, nick, day, count)
 		values(#{title}, #{content},  #{id}, #{nick}, now(), 0)
 	</insert>
-	<select id="reviewList" resultType="java.util.HashMap">
+	<insert id="writeH" parameterType="java.util.HashMap">
+		insert into
+		math_reviewh(title, content, id, nick, day, count)
+		values(#{title}, #{content},  #{id}, #{nick}, now(), 0)
+	</insert>
+	<select id="reviewListM" resultType="java.util.HashMap">
 		select * from math_review order by auto desc limit 10 offset #{page}
 	</select>
-	<select id="reviewNew" resultType="java.util.HashMap">
-		select * from math_review order by auto desc limit 3 offset 0
+	<select id="reviewListH" resultType="java.util.HashMap">
+		select * from math_reviewh order by auto desc limit 10 offset #{page}
 	</select>
-	<select id="reviewView" resultType="java.util.HashMap">
+	<select id="reviewViewM" resultType="java.util.HashMap">
 		select * from math_review where auto = #{num}
 	</select>
-	<select id="reviewCount" resultType="java.lang.Integer">
+	<select id="reviewViewH" resultType="java.util.HashMap">
+		select * from math_reviewh where auto = #{num}
+	</select>
+	<select id="reviewCountM" resultType="java.lang.Integer">
 		select count(*) from math_review
 	</select>
-	<update id="modify" parameterType="java.util.HashMap">
+	<select id="reviewCountH" resultType="java.lang.Integer">
+		select count(*) from math_reviewh
+	</select>
+	<select id="myReviewCountM" resultType="java.lang.Integer">
+		select count(*) from math_review where id = #{id}
+	</select>
+	<select id="myReviewCountH" resultType="java.lang.Integer">
+		select count(*) from math_reviewh where id = #{id}
+	</select>
+	<update id="modifyM" parameterType="java.util.HashMap">
 		update math_review set title = #{title}, content = #{content} where auto = #{num}
 	</update>
-	<delete id="delete">
+	<update id="modifyH" parameterType="java.util.HashMap">
+		update math_reviewh set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="deleteM">
 		delete from math_review where auto = #{num}
 	</delete>
-	<select id="reviewOne" resultType="java.util.HashMap">
+	<delete id="deleteH">
+		delete from math_reviewh where auto = #{num}
+	</delete>
+	<select id="reviewOneM" resultType="java.util.HashMap">
 		select * from math_review where auto = #{num}
 	</select>
-	<update id="countUp">
+	<select id="reviewOneH" resultType="java.util.HashMap">
+		select * from math_reviewh where auto = #{num}
+	</select>
+	<update id="countUpM">
 		update math_review set count = count+1 where auto = #{num}
 	</update>
+	<update id="countUpH">
+		update math_reviewh set count = count+1 where auto = #{num}
+	</update>
+	<select id="myReviewM" resultType="java.util.HashMap">
+		select * from math_review where id = #{id} order by auto desc limit 10 offset #{page}
+	</select>
+	<select id="myReviewH" resultType="java.util.HashMap">
+		select * from math_reviewh where id = #{id} order by auto desc limit 10 offset #{page}
+	</select>
 </mapper>
