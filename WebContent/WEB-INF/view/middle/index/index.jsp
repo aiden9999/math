@@ -123,36 +123,15 @@
                                     </div>
                                 </div>
                                 <div class="board_txt_wrap">
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>11월 12일, 11월 19일 입시 설명회 오전11시~오후1시</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 겨울방학 특강 시간표</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 수능 고3 미적분1 + 확률통계  수능 족집게 개념 강의</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 겨울방학 특강 시간표</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 수능 고3 미적분1 + 확률통계  수능 족집게 개념 강의</span>
-                                        </div>
-                                    </div>
+                                
+<!--                                     <div class="board_txt"> -->
+<!--                                         <div class="dot"></div> -->
+<!--                                         <div class="txt"> -->
+<!--                                             <span>11월 12일, 11월 19일 입시 설명회 오전11시~오후1시</span> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+									<div class="noContent">등록된 글이 없습니다.</div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -170,36 +149,15 @@
                                     </div>
                                 </div>
                                 <div class="board_txt_wrap">
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>11월 12일, 11월 19일 입시 설명회 오전11시~오후1시</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 겨울방학 특강 시간표</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 수능 고3 미적분1 + 확률통계  수능 족집게 개념 강의</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 겨울방학 특강 시간표</span>
-                                        </div>
-                                    </div>
-                                    <div class="board_txt">
-                                        <div class="dot"></div>
-                                        <div class="txt">
-                                            <span>2016년 수능 고3 미적분1 + 확률통계  수능 족집게 개념 강의</span>
-                                        </div>
-                                    </div>
+                                
+<!--                                     <div class="board_txt"> -->
+<!--                                         <div class="dot"></div> -->
+<!--                                         <div class="txt"> -->
+<!--                                             <span>11월 12일, 11월 19일 입시 설명회 오전11시~오후1시</span> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+                                    <div class="noContent">등록된 글이 없습니다.</div>
+                                    
                                 </div>
                             </div>
                         </div>

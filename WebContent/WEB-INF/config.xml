@@ -24,20 +24,20 @@
 	</bean>
 
 	<!-- mysql DB 연동 -->
-<!-- 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"> -->
-<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
-<!-- 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/mathclub" /> -->
-<!-- 		<property name="username" value="root" /> -->
-<!-- 		<property name="password" value="bluecat1" /> -->
-<!-- 	</bean> -->
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/mathclub" />
+		<property name="username" value="root" />
+		<property name="password" value="bluecat1" />
+	</bean>
 
 	<!-- mysql 웹db 연동 -->
-	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
-	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	<property name="url" value="jdbc:mysql://localhost:3306/mrrgo"/>
-	<property name="username" value="mrrgo"/>
-	<property name="password" value="mrrgo2016@"/>
-	</bean>
+<!-- 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"> -->
+<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/mrrgo"/> -->
+<!-- 		<property name="username" value="mrrgo"/> -->
+<!-- 		<property name="password" value="mrrgo2016@"/> -->
+<!-- 	</bean> -->
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 		<property name="dataSource" ref="dataSource" />
